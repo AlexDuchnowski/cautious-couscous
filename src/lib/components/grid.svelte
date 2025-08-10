@@ -5,10 +5,12 @@
     /* === PROPS ============================== */
     interface Props {
         grid: Grid;
+        playerPosition: Vec2;
     }
 
     let {
-        grid
+        grid,
+        playerPosition
     }: Props = $props();
 
     /* === CONSTS ============================= */
@@ -36,7 +38,7 @@
             }
         }
         return cells;
-    })
+    });
 </script>
 
 
@@ -83,7 +85,7 @@
     </g>
 
     <!-- cells -->
-     <g class="cells">
+    <g class="cells">
         {#each cells as { type, position } }
             <rect
                 class={`type-${type}`}
@@ -93,7 +95,14 @@
                 height={cellSize}
             />
         {/each}
-     </g>
+    </g>
+
+    <!-- player -->
+    <circle
+        cx={margin + strokeWidth + playerPosition.x * (cellSize + strokeWidth) + 0.5 * cellSize}
+        cy={margin + strokeWidth + playerPosition.y * (cellSize + strokeWidth) + 0.5 * cellSize}
+        r={0.5 * cellSize}
+    />
 </svg>
 
 
