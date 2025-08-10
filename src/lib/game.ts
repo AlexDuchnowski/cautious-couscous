@@ -46,7 +46,6 @@ export class Game {
 
 		switch (direction) {
 			case Direction.Up:
-				console.log('Moving Up...');
 				while (
 					![Wall, HTunnel].includes(
 						this.grid[mod(this.playerPosition.y - 1, this.gridHeight)][this.playerPosition.x]
@@ -57,10 +56,8 @@ export class Game {
 						break;
 					}
 				}
-				console.log('Finished Moving Up');
 				break;
 			case Direction.Right:
-				console.log('Moving Right...');
 				while (
 					![Wall, VTunnel].includes(
 						this.grid[this.playerPosition.y][mod(this.playerPosition.x + 1, this.gridWidth)]
@@ -71,10 +68,8 @@ export class Game {
 						break;
 					}
 				}
-				console.log('Finished Moving Right');
 				break;
 			case Direction.Down:
-				console.log('Moving Down...');
 				while (
 					![Wall, HTunnel].includes(
 						this.grid[mod(this.playerPosition.y + 1, this.gridHeight)][this.playerPosition.x]
@@ -85,10 +80,8 @@ export class Game {
 						break;
 					}
 				}
-				console.log('Finished Moving Down');
 				break;
 			case Direction.Left:
-				console.log('Moving Left...');
 				let count = 0;
 				while (
 					![Wall, VTunnel].includes(
@@ -101,7 +94,6 @@ export class Game {
 						break;
 					}
 				}
-				console.log('Finished Moving Left');
 				break;
 		}
 

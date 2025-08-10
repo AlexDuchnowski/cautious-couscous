@@ -14,16 +14,16 @@ export const levels: Level[] = [
 	},
 	{
 		grid: [
-			[Empty, Wall, Wall, Wall],
+			[Empty, Empty, Empty, Wall],
 			[Empty, Wall, Empty, Empty],
-			[Wall, Empty, Empty, Wall],
-			[Wall, Wall, Empty, Goal]
+			[Wall, Empty, Wall, Empty],
+			[Empty, Empty, Empty, Goal]
 		],
 		playerPosition: { x: 0, y: 0 }
 	},
 	{
 		grid: [
-			[Empty, Sticky, Empty, Sticky],
+			[Empty, Sticky, Empty, Wall],
 			[Wall, Empty, Empty, Empty],
 			[Empty, Wall, Goal, Empty],
 			[Wall, Empty, Wall, Wall]
