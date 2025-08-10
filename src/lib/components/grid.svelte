@@ -14,31 +14,29 @@
     }: Props = $props();
 
     /* === CONSTS ============================= */
-    const cellSize = 20;    // pixels
-    const strokeWidth = 1;  // pixels
+    const renderScale = 2;
+    const cellSize = 20 * renderScale;    // pixels
+    const strokeWidth = 1 / renderScale;  // pixels
+    const strokeOffset = 0.5 * strokeWidth;
     const width = grid[0].length;
     const height = grid.length;
     const margin = 3;       //pixels
     const svgWidth = width * cellSize + (width * strokeWidth + 2 * strokeWidth) + margin * 2;
     const svgHeight = height * cellSize + (height * strokeWidth + 2 * strokeWidth) + margin * 2;
-
-    let cells = $derived.by(() => {
-        const cells: {
-            type: Omit<CellType, CellType.Empty>;
-            position: Vec2
-        }[] = [];
-        for(let x = 0; x < width; x++) {
-            for (let y = 0; y < height; y++) {
-                if (grid[y][x] !== CellType.Empty) {
-                    cells.push({
-                        type: grid[y][x],
-                        position: { x, y }
-                    });
-                }
+    const cells: {
+        type: Omit<CellType, CellType.Empty>;
+        position: Vec2;
+    }[] = [];
+    for(let x = 0; x < width; x++) {
+        for (let y = 0; y < height; y++) {
+            if (grid[y][x] !== CellType.Empty) {
+                cells.push({
+                    type: grid[y][x],
+                    position: { x, y }
+                });
             }
         }
-        return cells;
-    });
+    }
 </script>
 
 
@@ -61,25 +59,25 @@
     <!-- grid -->
     <g class="grid">
         <rect
-            x={margin + 0.5 * strokeWidth}
-            y={margin + 0.5 * strokeWidth}
+            x={strokeOffset}
+            y={strokeOffset}
             width={width * (cellSize + strokeWidth)}
             height={height * (cellSize + strokeWidth)}
         />
         {#each { length: height - 1 } as _, i}
             <line
-                x1={margin + 0.5 * strokeWidth}
-                y1={margin + 0.5 * strokeWidth + (i + 1) * (cellSize + strokeWidth)}
-                x2={margin + width * (cellSize + strokeWidth) +  0.5* strokeWidth}
-                y2={margin + 0.5 * strokeWidth + (i + 1) * (cellSize + strokeWidth)}
+                x1={strokeOffset}
+                y1={strokeOffset + (i + 1) * (cellSize + strokeWidth)}
+                x2={strokeOffset + width * (cellSize + strokeWidth)}
+                y2={strokeOffset + (i + 1) * (cellSize + strokeWidth)}
             />
         {/each}
         {#each { length: width - 1 } as _, i}
             <line
-                x1={margin + 0.5 * strokeWidth + (i + 1) * (cellSize + strokeWidth)}
-                y1={margin + 0.5 * strokeWidth}
-                x2={margin + 0.5 * strokeWidth + (i + 1) * (cellSize + strokeWidth)}
-                y2={margin + width * (cellSize + strokeWidth) +  0.5* strokeWidth}
+                x1={strokeOffset + (i + 1) * (cellSize + strokeWidth)}
+                y1={strokeOffset}
+                x2={strokeOffset + (i + 1) * (cellSize + strokeWidth)}
+                y2={strokeOffset + width * (cellSize + strokeWidth)}
             />
         {/each}
     </g>
@@ -89,8 +87,8 @@
         {#each cells as { type, position } }
             <rect
                 class={`type-${type}`}
-                x={margin + strokeWidth + position.x * (cellSize + strokeWidth)}
-                y={margin + strokeWidth + position.y * (cellSize + strokeWidth)}
+                x={strokeWidth + position.x * (cellSize + strokeWidth)}
+                y={strokeWidth + position.y * (cellSize + strokeWidth)}
                 width={cellSize}
                 height={cellSize}
             />
@@ -99,8 +97,8 @@
 
     <!-- player -->
     <circle
-        cx={margin + strokeWidth + playerPosition.x * (cellSize + strokeWidth) + 0.5 * cellSize}
-        cy={margin + strokeWidth + playerPosition.y * (cellSize + strokeWidth) + 0.5 * cellSize}
+        cx={strokeWidth + playerPosition.x * (cellSize + strokeWidth) + 0.5 * cellSize}
+        cy={strokeWidth + playerPosition.y * (cellSize + strokeWidth) + 0.5 * cellSize}
         r={0.5 * cellSize}
     />
 </svg>
@@ -110,8 +108,8 @@
 <style lang="scss">
     .game {
         display: block;
-        width: calc(2 * var(--svgWidth));
-        height: calc(2 * var(--svgHeight));
+        width: var(--svgWidth);
+        height: var(--svgHeight);
 
         .grid {
             * {
