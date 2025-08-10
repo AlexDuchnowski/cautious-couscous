@@ -64,7 +64,7 @@ export const levels: Level[] = [
 			[Empty, Empty, Empty, Wall, Empty],
 			[Wall, Wall, Goal, Wall, Empty],
 			[Empty, Wall, Wall, Empty, Empty],
-			[Empty, Empty, Wall, Empty, Empty]
+			[Empty, Empty, Wall, Empty, Wall]
 		],
 		playerPosition: { x: 3, y: 3 }
 	},
