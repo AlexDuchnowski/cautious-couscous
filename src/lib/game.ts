@@ -1,13 +1,29 @@
 import type { Grid, Vec2 } from './types';
-import { Direction } from './types';
+import { Direction, CellType } from './types';
 
 export class Game {
 	grid: Grid = [];
 	playerPosition: Vec2 = { x: 0, y: 0 };
+	gridWidth: number = 0;
+	gridHeight: number = 0;
+
+	originalGrid: Grid = [];
+	originalPlayerPosition: Vec2 = { x: 0, y: 0 };
 
 	constructor(grid: Grid, playerPosition: Vec2) {
 		this.grid = grid;
+		this.originalGrid = JSON.parse(JSON.stringify(grid)); // Deep copy to preserve original grid
+
+		this.gridWidth = grid[0].length;
+		this.gridHeight = grid.length;
+
 		this.playerPosition = playerPosition;
+		this.originalPlayerPosition = { ...playerPosition }; // Copy player position
+	}
+
+	reset() {
+		this.grid = JSON.parse(JSON.stringify(this.originalGrid));
+		this.playerPosition = { ...this.originalPlayerPosition };
 	}
 
 	getGrid(): Grid {
@@ -18,28 +34,49 @@ export class Game {
 		return this.playerPosition;
 	}
 
-	movePlayer(direction: Direction): { start: Vec2; end: Vec2; d: Direction } {
+	movePlayer(direction: Direction): { start: Vec2; end: Vec2; d: Direction; win: boolean } {
 		let startPos = this.playerPosition;
 
 		switch (direction) {
 			case Direction.Up:
-				this.playerPosition.y = Math.max(0, this.playerPosition.y - 1);
+				while (
+					this.grid[(this.playerPosition.y - 1) % this.gridHeight][this.playerPosition.x] !==
+					CellType.Wall
+				) {
+					this.playerPosition.y = (this.playerPosition.y - 1) % this.gridHeight;
+				}
 				break;
 			case Direction.Right:
-				this.playerPosition.x = Math.min(this.grid[0].length - 1, this.playerPosition.x + 1);
+				while (
+					this.grid[this.playerPosition.y][(this.playerPosition.x + 1) % this.gridWidth] !==
+					CellType.Wall
+				) {
+					this.playerPosition.x = (this.playerPosition.x + 1) % this.gridWidth;
+				}
 				break;
 			case Direction.Down:
-				this.playerPosition.y = Math.min(this.grid.length - 1, this.playerPosition.y + 1);
+				while (
+					this.grid[(this.playerPosition.y + 1) % this.gridHeight][this.playerPosition.x] !==
+					CellType.Wall
+				) {
+					this.playerPosition.y = (this.playerPosition.y + 1) % this.gridHeight;
+				}
 				break;
 			case Direction.Left:
-				this.playerPosition.x = Math.max(0, this.playerPosition.x - 1);
+				while (
+					this.grid[this.playerPosition.y][(this.playerPosition.x - 1) % this.gridWidth] !==
+					CellType.Wall
+				) {
+					this.playerPosition.x = (this.playerPosition.x - 1) % this.gridWidth;
+				}
 				break;
 		}
 
 		return {
 			start: startPos,
-			end: { x: 1, y: 2 },
-			d: direction
+			end: { ...this.playerPosition },
+			d: direction,
+			win: this.grid[this.playerPosition.y][this.playerPosition.x] === CellType.Goal
 		};
 	}
 }
