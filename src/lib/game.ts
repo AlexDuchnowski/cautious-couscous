@@ -1,9 +1,9 @@
-import type { Grid, Level, Vec2 } from './types';
+import type { Grid, Level, Vec2, Movement } from './types';
 import { Direction, CellType } from './types';
 
 const { Empty, Goal, Wall, HTunnel, VTunnel, Sticky } = CellType;
 
-function mod(n: number, m: number): number {
+export function mod(n: number, m: number): number {
 	return ((n % m) + m) % m;
 }
 
@@ -41,7 +41,7 @@ export class Game {
 		return this.playerPosition;
 	}
 
-	movePlayer(direction: Direction): { start: Vec2; end: Vec2; d: Direction | null; win: boolean } {
+	movePlayer(direction: Direction): Movement {
 		let startPos = this.playerPosition;
 
 		let moved = false;
