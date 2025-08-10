@@ -1,18 +1,25 @@
 <script lang="ts">
     /* === IMPORTS ============================ */
     import { Game } from "$lib/game";
-    import type { Vec2 } from "$lib/types";
-    import Grid from "$components/grid.svelte";
+    import type { Vec2, Level } from "$lib/types";
+    import Renderer from "$components/renderer.svelte";
 	import { Direction } from "$lib/types";
 	import { onMount } from "svelte";
 	import { levels } from "$lib/levels";
 
-    /* === GAME =============================== */
-    let level_index: number = 0;
-    let game: Game = new Game (levels[level_index]);
+    /* === PROPS ============================== */
+    interface Props {
+        levelIndex: number;
+    }
 
-    let grid = game.getGrid();
-    let playerPosition = $state(game.getPlayerPosition());
+    let {
+        levelIndex
+    }: Props = $props();
+
+    /* === GAME =============================== */
+    const level = levels[levelIndex]
+    let game: Game = new Game(level);
+    let playerPosition = $state(level.playerPosition);
 
     function handleKeydown(
         event: KeyboardEvent
@@ -44,8 +51,11 @@
         }
 
         if (movement.win) {
-            level_index = (level_index + 1) % levels.length;
-            game = new Game(levels[level_index]);
+            const nextLevelIndex = (levelIndex + 1) % levels.length;
+            console.log("won. Going to " + nextLevelIndex);
+            const currentUrl = new URL(window.location.href);
+            currentUrl.pathname = `/level/${nextLevelIndex}`;
+            window.location.href = currentUrl.toString();
         }
 
         event.preventDefault();
@@ -60,4 +70,4 @@
 
 
 
-<Grid {grid} {playerPosition} />
+<Renderer grid={level.grid} {playerPosition} />

@@ -1,10 +1,14 @@
 <script lang="ts">
+    import type { PageProps } from './$types';
+    import Game from '$components/game.svelte';
+
+    let { data }: PageProps = $props();
 </script>
 
 
 
 <main>
-    <h1>Hello World</h1>
+    <Game levelIndex={data.levelIndex} />
 </main>
 
 
