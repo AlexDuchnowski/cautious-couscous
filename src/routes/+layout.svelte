@@ -9,3 +9,7 @@
 </svelte:head>
 
 {@render children?.()}
+
+<style lang="scss">
+	@use "../styles/resets" as *;
+</style>
