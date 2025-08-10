@@ -1,32 +1,38 @@
-import type { Grid, Vec2 } from './types';
+import { Game } from '$lib/game';
 import { CellType } from './types';
 
 const { Empty, Goal, Wall, HTunnel, VTunnel, Sticky } = CellType;
 
-export let starterPuzzleGrid: Grid = [
-	[Empty, Wall, Empty, Wall],
-	[Empty, Empty, Empty, Wall],
-	[Wall, Empty, Empty, Empty],
-	[Wall, Wall, Wall, Goal]
-];
-export let starterPuzzlePlayerPosition: Vec2 = { x: 0, y: 0 };
+export const starterGame: Game = new Game(
+	[
+		[Empty, Wall, Empty, Wall],
+		[Empty, Empty, Empty, Wall],
+		[Wall, Empty, Empty, Empty],
+		[Wall, Wall, Wall, Goal]
+	],
+	{ x: 0, y: 0 }
+);
 
-export let smallPuzzleGrid: Grid = [
-	[Empty, Wall, Empty, Wall, Empty],
-	[Empty, Empty, Empty, Wall, Empty],
-	[Wall, Wall, Goal, Wall, Empty],
-	[Empty, Wall, Wall, Empty, Empty],
-	[Empty, Empty, Wall, Empty, Empty]
-];
-export let smallPuzzlePlayerPosition: Vec2 = { x: 3, y: 3 };
+export const smallGame: Game = new Game(
+	[
+		[Empty, Wall, Empty, Wall, Empty],
+		[Empty, Empty, Empty, Wall, Empty],
+		[Wall, Wall, Goal, Wall, Empty],
+		[Empty, Wall, Wall, Empty, Empty],
+		[Empty, Empty, Wall, Empty, Empty]
+	],
+	{ x: 3, y: 3 }
+);
 
-export let largePuzzleGrid: Grid = [
-	[Empty, Wall, Empty, Empty, Empty, Wall, Empty],
-	[Empty, Empty, Wall, Empty, Wall, Empty, Empty],
-	[Empty, Empty, Wall, Goal, Wall, Empty, Empty],
-	[Empty, Empty, Empty, Wall, Empty, Empty, Empty],
-	[Empty, Wall, Wall, Wall, Empty, Empty, Empty],
-	[Empty, Empty, Empty, Empty, Wall, Empty, Wall],
-	[Wall, Empty, Empty, Empty, Empty, Wall, Empty]
-];
-export let largePuzzlePlayerPosition: Vec2 = { x: 1, y: 1 };
+export const largeGame: Game = new Game(
+	[
+		[Empty, Wall, Empty, Empty, Empty, Wall, Empty],
+		[Empty, Empty, Wall, Empty, Wall, Empty, Empty],
+		[Empty, Empty, Wall, Goal, Wall, Empty, Empty],
+		[Empty, Empty, Empty, Wall, Empty, Empty, Empty],
+		[Empty, Wall, Wall, Wall, Empty, Empty, Empty],
+		[Empty, Empty, Empty, Empty, Wall, Empty, Wall],
+		[Wall, Empty, Empty, Empty, Empty, Wall, Empty]
+	],
+	{ x: 1, y: 1 }
+);

@@ -2,16 +2,19 @@
     /* === IMPORTS ============================ */
     import { Game } from "$lib/game";
     import type { Vec2 } from "$lib/types";
-    import { largePuzzleGrid, largePuzzlePlayerPosition } from "$lib/puzzles";
+    import { starterGame, smallGame, largeGame} from "$lib/puzzles";
     import Grid from "$components/grid.svelte";
 	import { Direction } from "$lib/types";
 	import { onMount } from "svelte";
 
     /* === GAME =============================== */
-    const game = new Game(
-        largePuzzleGrid,
-        largePuzzlePlayerPosition
-    );
+    const games: Game[] = [
+        starterGame,
+        smallGame,
+        largeGame
+    ];
+    let game_index: number = 0;
+    let game: Game = games[game_index];
 
     let grid = game.getGrid();
     let playerPosition = $state(game.getPlayerPosition());
@@ -40,9 +43,14 @@
                 break;
             case "Escape":
                 game.reset();
-                break;
+                return;
             default:
                 return;
+        }
+
+        if (movement.win) {
+            game_index = (game_index + 1) % games.length;
+            game = games[game_index];
         }
 
         playerPosition = game.getPlayerPosition();
