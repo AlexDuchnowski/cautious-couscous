@@ -14,6 +14,24 @@ export const levels: Level[] = [
 	},
 	{
 		grid: [
+			[Empty, Wall, Wall, Wall],
+			[Empty, Wall, Empty, Empty],
+			[Wall, Empty, Empty, Wall],
+			[Wall, Wall, Empty, Goal]
+		],
+		playerPosition: { x: 0, y: 0 }
+	},
+	{
+		grid: [
+			[Empty, Sticky, Empty, Sticky],
+			[Wall, Empty, Empty, Empty],
+			[Empty, Empty, Goal, Empty],
+			[Wall, Empty, Wall, Wall]
+		],
+		playerPosition: { x: 0, y: 0 }
+	},
+	{
+		grid: [
 			[Empty, Wall, Empty, Wall, Empty],
 			[Empty, Empty, Empty, Wall, Empty],
 			[Wall, Wall, Goal, Wall, Empty],

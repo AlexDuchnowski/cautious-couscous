@@ -96,7 +96,7 @@
     </g>
 
     <!-- player -->
-    <circle
+    <circle class="player"
         cx={strokeWidth + playerPosition.x * (cellSize + strokeWidth) + 0.5 * cellSize}
         cy={strokeWidth + playerPosition.y * (cellSize + strokeWidth) + 0.5 * cellSize}
         r={0.5 * cellSize}
@@ -128,13 +128,32 @@
                 stroke: none;
             }
 
+            .type-0 {
+                fill: aliceblue;
+            }
+
             .type-1 {
-                fill: blue;
+                fill: chartreuse;
             }
 
             .type-2 {
-                fill: red;
+                fill: slategray;
             }
+
+            .type-3 {
+                fill: olive; // to be replaced with a tunnel sprite/shape
+            }
+
+            .type-4 {
+                fill: olive; // to be replaced with a tunnel sprite/shape
+            }
+            .type-5 {
+                fill: salmon;
+            }
+        }
+
+        .player {
+            fill: darkorange;
         }
     }
 </style>
