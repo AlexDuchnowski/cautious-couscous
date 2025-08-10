@@ -17,11 +17,11 @@
     let playerPosition = $state(game.getPlayerPosition());
 
     function handleKeydown(
-        ev: KeyboardEvent
+        event: KeyboardEvent
     ) {
         let movement: { start: Vec2; end: Vec2; d: Direction; win: boolean };
     
-        switch (ev.key) {
+        switch (event.key) {
             case "ArrowUp":
             case "w":
                 movement = game.movePlayer(Direction.Up);
@@ -45,6 +45,7 @@
                 return;
         }
 
+        event.preventDefault();
         playerPosition = game.getPlayerPosition();
     }
 

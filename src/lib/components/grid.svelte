@@ -14,7 +14,7 @@
     }: Props = $props();
 
     /* === CONSTS ============================= */
-    const renderScale = 2;
+    const renderScale = 4;
     const cellSize = 20 * renderScale;    // pixels
     const strokeWidth = 1 / renderScale;  // pixels
     const strokeOffset = 0.5 * strokeWidth;
