@@ -23,7 +23,7 @@ export const levels: Level[] = [
 	},
 	{
 		grid: [
-			[Empty, Sticky, Empty, Wall],
+			[Empty, Sticky, Empty, Empty],
 			[Wall, Empty, Empty, Empty],
 			[Empty, Wall, Goal, Empty],
 			[Wall, Empty, Wall, Wall]

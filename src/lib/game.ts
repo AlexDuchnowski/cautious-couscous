@@ -41,8 +41,10 @@ export class Game {
 		return this.playerPosition;
 	}
 
-	movePlayer(direction: Direction): { start: Vec2; end: Vec2; d: Direction; win: boolean } {
+	movePlayer(direction: Direction): { start: Vec2; end: Vec2; d: Direction | null; win: boolean } {
 		let startPos = this.playerPosition;
+
+		let moved = false;
 
 		switch (direction) {
 			case Direction.Up:
@@ -51,8 +53,9 @@ export class Game {
 						this.grid[mod(this.playerPosition.y - 1, this.gridHeight)][this.playerPosition.x]
 					)
 				) {
+					moved = true;
 					this.playerPosition.y = mod(this.playerPosition.y - 1, this.gridHeight);
-					if (this.grid[this.playerPosition.y][this.playerPosition.x] === Sticky) {
+					if ([Sticky, Goal].includes(this.grid[this.playerPosition.y][this.playerPosition.x])) {
 						break;
 					}
 				}
@@ -63,8 +66,9 @@ export class Game {
 						this.grid[this.playerPosition.y][mod(this.playerPosition.x + 1, this.gridWidth)]
 					)
 				) {
+					moved = true;
 					this.playerPosition.x = mod(this.playerPosition.x + 1, this.gridWidth);
-					if (this.grid[this.playerPosition.y][this.playerPosition.x] === Sticky) {
+					if ([Sticky, Goal].includes(this.grid[this.playerPosition.y][this.playerPosition.x])) {
 						break;
 					}
 				}
@@ -75,8 +79,9 @@ export class Game {
 						this.grid[mod(this.playerPosition.y + 1, this.gridHeight)][this.playerPosition.x]
 					)
 				) {
+					moved = true;
 					this.playerPosition.y = mod(this.playerPosition.y + 1, this.gridHeight);
-					if (this.grid[this.playerPosition.y][this.playerPosition.x] === Sticky) {
+					if ([Sticky, Goal].includes(this.grid[this.playerPosition.y][this.playerPosition.x])) {
 						break;
 					}
 				}
@@ -88,9 +93,10 @@ export class Game {
 						this.grid[this.playerPosition.y][mod(this.playerPosition.x - 1, this.gridWidth)]
 					)
 				) {
+					moved = true;
 					this.playerPosition.x = mod(this.playerPosition.x - 1, this.gridWidth);
 					count++;
-					if (this.grid[this.playerPosition.y][this.playerPosition.x] === Sticky) {
+					if ([Sticky, Goal].includes(this.grid[this.playerPosition.y][this.playerPosition.x])) {
 						break;
 					}
 				}
@@ -100,7 +106,7 @@ export class Game {
 		return {
 			start: startPos,
 			end: { ...this.playerPosition },
-			d: direction,
+			d: moved ? direction : null,
 			win: this.grid[this.playerPosition.y][this.playerPosition.x] === Goal
 		};
 	}

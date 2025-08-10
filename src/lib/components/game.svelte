@@ -24,7 +24,7 @@
     function handleKeydown(
         event: KeyboardEvent
     ) {
-        let movement: { start: Vec2; end: Vec2; d: Direction; win: boolean };
+        let movement: { start: Vec2; end: Vec2; d: Direction | null; win: boolean };
     
         switch (event.key) {
             case "ArrowUp":
