@@ -3,6 +3,14 @@ import { CellType } from './types';
 
 const { Empty, Goal, Wall, HTunnel, VTunnel, Sticky } = CellType;
 
+export let starterPuzzleGrid: Grid = [
+	[Empty, Wall, Empty, Wall],
+	[Empty, Empty, Empty, Wall],
+	[Wall, Empty, Empty, Empty],
+	[Wall, Wall, Wall, Goal]
+];
+export let starterPuzzlePlayerPosition: Vec2 = { x: 0, y: 0 };
+
 export let smallPuzzleGrid: Grid = [
 	[Empty, Wall, Empty, Wall, Empty],
 	[Empty, Empty, Empty, Wall, Empty],
