@@ -3,6 +3,10 @@ import { Direction, CellType } from './types';
 
 const { Empty, Goal, Wall, HTunnel, VTunnel, Sticky } = CellType;
 
+function mod(n: number, m: number): number {
+	return ((n % m) + m) % m;
+}
+
 export class Game {
 	grid: Grid = [];
 	playerPosition: Vec2 = { x: 0, y: 0 };
@@ -42,52 +46,62 @@ export class Game {
 
 		switch (direction) {
 			case Direction.Up:
+				console.log('Moving Up...');
 				while (
 					![Wall, HTunnel].includes(
-						this.grid[(this.playerPosition.y - 1) % this.gridHeight][this.playerPosition.x]
+						this.grid[mod(this.playerPosition.y - 1, this.gridHeight)][this.playerPosition.x]
 					)
 				) {
-					this.playerPosition.y = (this.playerPosition.y - 1) % this.gridHeight;
+					this.playerPosition.y = mod(this.playerPosition.y - 1, this.gridHeight);
 					if (this.grid[this.playerPosition.y][this.playerPosition.x] === Sticky) {
 						break;
 					}
 				}
+				console.log('Finished Moving Up');
 				break;
 			case Direction.Right:
+				console.log('Moving Right...');
 				while (
 					![Wall, VTunnel].includes(
-						this.grid[this.playerPosition.y][(this.playerPosition.x + 1) % this.gridWidth]
+						this.grid[this.playerPosition.y][mod(this.playerPosition.x + 1, this.gridWidth)]
 					)
 				) {
-					this.playerPosition.x = (this.playerPosition.x + 1) % this.gridWidth;
+					this.playerPosition.x = mod(this.playerPosition.x + 1, this.gridWidth);
 					if (this.grid[this.playerPosition.y][this.playerPosition.x] === Sticky) {
 						break;
 					}
 				}
+				console.log('Finished Moving Right');
 				break;
 			case Direction.Down:
+				console.log('Moving Down...');
 				while (
 					![Wall, HTunnel].includes(
-						this.grid[(this.playerPosition.y + 1) % this.gridHeight][this.playerPosition.x]
+						this.grid[mod(this.playerPosition.y + 1, this.gridHeight)][this.playerPosition.x]
 					)
 				) {
-					this.playerPosition.y = (this.playerPosition.y + 1) % this.gridHeight;
+					this.playerPosition.y = mod(this.playerPosition.y + 1, this.gridHeight);
 					if (this.grid[this.playerPosition.y][this.playerPosition.x] === Sticky) {
 						break;
 					}
 				}
+				console.log('Finished Moving Down');
 				break;
 			case Direction.Left:
+				console.log('Moving Left...');
+				let count = 0;
 				while (
 					![Wall, VTunnel].includes(
-						this.grid[this.playerPosition.y][(this.playerPosition.x - 1) % this.gridWidth]
+						this.grid[this.playerPosition.y][mod(this.playerPosition.x - 1, this.gridWidth)]
 					)
 				) {
-					this.playerPosition.x = (this.playerPosition.x - 1) % this.gridWidth;
+					this.playerPosition.x = mod(this.playerPosition.x - 1, this.gridWidth);
+					count++;
 					if (this.grid[this.playerPosition.y][this.playerPosition.x] === Sticky) {
 						break;
 					}
 				}
+				console.log('Finished Moving Left');
 				break;
 		}
 
