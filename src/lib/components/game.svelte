@@ -45,6 +45,8 @@
                 break;
             case "Escape":
                 game.reset();
+                event.preventDefault();
+                playerPosition = game.getPlayerPosition();
                 return;
             default:
                 return;
