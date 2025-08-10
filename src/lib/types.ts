@@ -22,3 +22,10 @@ export type Level = {
 	grid: Grid;
 	playerPosition: Vec2;
 };
+
+export type Movement = {
+	start: Vec2;
+	end: Vec2;
+	d: Direction | null;
+	win: boolean
+};
