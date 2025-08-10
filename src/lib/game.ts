@@ -1,4 +1,4 @@
-import type { Grid, Vec2 } from './types';
+import type { Grid, Level, Vec2 } from './types';
 import { Direction, CellType } from './types';
 
 const { Empty, Goal, Wall, HTunnel, VTunnel, Sticky } = CellType;
@@ -17,15 +17,15 @@ export class Game {
 	originalGrid: Grid = [];
 	originalPlayerPosition: Vec2 = { x: 0, y: 0 };
 
-	constructor(grid: Grid, playerPosition: Vec2) {
-		this.grid = grid;
-		this.originalGrid = JSON.parse(JSON.stringify(grid)); // Deep copy to preserve original grid
+	constructor(level: Level) {
+		this.grid = level.grid;
+		this.originalGrid = JSON.parse(JSON.stringify(level.grid)); // Deep copy to preserve original grid
 
-		this.gridWidth = grid[0].length;
-		this.gridHeight = grid.length;
+		this.gridWidth = level.grid[0].length;
+		this.gridHeight = level.grid.length;
 
-		this.playerPosition = playerPosition;
-		this.originalPlayerPosition = { ...playerPosition };
+		this.playerPosition = level.playerPosition;
+		this.originalPlayerPosition = { ...level.playerPosition };
 	}
 
 	reset() {

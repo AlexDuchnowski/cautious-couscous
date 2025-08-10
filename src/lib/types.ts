@@ -17,3 +17,8 @@ export enum CellType {
 export type Grid = CellType[][];
 
 export type Vec2 = { x: number; y: number };
+
+export type Level = {
+	grid: Grid;
+	playerPosition: Vec2;
+};

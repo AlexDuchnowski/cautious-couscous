@@ -2,19 +2,14 @@
     /* === IMPORTS ============================ */
     import { Game } from "$lib/game";
     import type { Vec2 } from "$lib/types";
-    import { starterGame, smallGame, largeGame} from "$lib/puzzles";
     import Grid from "$components/grid.svelte";
 	import { Direction } from "$lib/types";
 	import { onMount } from "svelte";
+	import { levels } from "$lib/levels";
 
     /* === GAME =============================== */
-    const games: Game[] = [
-        starterGame,
-        smallGame,
-        largeGame
-    ];
-    let game_index: number = 0;
-    let game: Game = games[game_index];
+    let level_index: number = 0;
+    let game: Game = new Game (levels[level_index]);
 
     let grid = game.getGrid();
     let playerPosition = $state(game.getPlayerPosition());
@@ -49,8 +44,8 @@
         }
 
         if (movement.win) {
-            game_index = (game_index + 1) % games.length;
-            game = games[game_index];
+            level_index = (level_index + 1) % levels.length;
+            game = new Game(levels[level_index]);
         }
 
         event.preventDefault();
