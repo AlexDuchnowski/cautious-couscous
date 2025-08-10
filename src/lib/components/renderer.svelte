@@ -148,12 +148,12 @@
                 fill: olive; // to be replaced with a tunnel sprite/shape
             }
             .type-5 {
-                fill: salmon;
+                fill: powderblue;
             }
         }
 
         .player {
-            fill: darkorange;
+            fill: coral;
         }
     }
 </style>

@@ -4,7 +4,7 @@
 
 
 <main>
-    <h1>Hello World</h1>
+    <h1 style="color:crimson; text-decoration: underline overline"><a href="/level/0">Start Game</a></h1>
 </main>
 
 
