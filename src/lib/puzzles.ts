@@ -1,7 +1,7 @@
 import type { Grid, Vec2 } from './types';
 import { CellType } from './types';
 
-const { Empty, Wall, Goal } = CellType;
+const { Empty, Goal, Wall, HTunnel, VTunnel, Sticky } = CellType;
 
 export let smallPuzzleGrid: Grid = [
 	[Empty, Wall, Empty, Wall, Empty],

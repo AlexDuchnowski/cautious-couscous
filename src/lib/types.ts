@@ -7,8 +7,11 @@ export enum Direction {
 
 export enum CellType {
 	Empty = 0,
+	Goal,
 	Wall,
-	Goal
+	HTunnel,
+	VTunnel,
+	Sticky
 }
 
 export type Grid = CellType[][];

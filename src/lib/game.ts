@@ -1,9 +1,12 @@
 import type { Grid, Vec2 } from './types';
 import { Direction, CellType } from './types';
 
+const { Empty, Goal, Wall, HTunnel, VTunnel, Sticky } = CellType;
+
 export class Game {
 	grid: Grid = [];
 	playerPosition: Vec2 = { x: 0, y: 0 };
+
 	gridWidth: number = 0;
 	gridHeight: number = 0;
 
@@ -18,7 +21,7 @@ export class Game {
 		this.gridHeight = grid.length;
 
 		this.playerPosition = playerPosition;
-		this.originalPlayerPosition = { ...playerPosition }; // Copy player position
+		this.originalPlayerPosition = { ...playerPosition };
 	}
 
 	reset() {
@@ -40,34 +43,50 @@ export class Game {
 		switch (direction) {
 			case Direction.Up:
 				while (
-					this.grid[(this.playerPosition.y - 1) % this.gridHeight][this.playerPosition.x] !==
-					CellType.Wall
+					![Wall, HTunnel].includes(
+						this.grid[(this.playerPosition.y - 1) % this.gridHeight][this.playerPosition.x]
+					)
 				) {
 					this.playerPosition.y = (this.playerPosition.y - 1) % this.gridHeight;
+					if (this.grid[this.playerPosition.y][this.playerPosition.x] === Sticky) {
+						break;
+					}
 				}
 				break;
 			case Direction.Right:
 				while (
-					this.grid[this.playerPosition.y][(this.playerPosition.x + 1) % this.gridWidth] !==
-					CellType.Wall
+					![Wall, VTunnel].includes(
+						this.grid[this.playerPosition.y][(this.playerPosition.x + 1) % this.gridWidth]
+					)
 				) {
 					this.playerPosition.x = (this.playerPosition.x + 1) % this.gridWidth;
+					if (this.grid[this.playerPosition.y][this.playerPosition.x] === Sticky) {
+						break;
+					}
 				}
 				break;
 			case Direction.Down:
 				while (
-					this.grid[(this.playerPosition.y + 1) % this.gridHeight][this.playerPosition.x] !==
-					CellType.Wall
+					![Wall, HTunnel].includes(
+						this.grid[(this.playerPosition.y + 1) % this.gridHeight][this.playerPosition.x]
+					)
 				) {
 					this.playerPosition.y = (this.playerPosition.y + 1) % this.gridHeight;
+					if (this.grid[this.playerPosition.y][this.playerPosition.x] === Sticky) {
+						break;
+					}
 				}
 				break;
 			case Direction.Left:
 				while (
-					this.grid[this.playerPosition.y][(this.playerPosition.x - 1) % this.gridWidth] !==
-					CellType.Wall
+					![Wall, VTunnel].includes(
+						this.grid[this.playerPosition.y][(this.playerPosition.x - 1) % this.gridWidth]
+					)
 				) {
 					this.playerPosition.x = (this.playerPosition.x - 1) % this.gridWidth;
+					if (this.grid[this.playerPosition.y][this.playerPosition.x] === Sticky) {
+						break;
+					}
 				}
 				break;
 		}
@@ -76,7 +95,7 @@ export class Game {
 			start: startPos,
 			end: { ...this.playerPosition },
 			d: direction,
-			win: this.grid[this.playerPosition.y][this.playerPosition.x] === CellType.Goal
+			win: this.grid[this.playerPosition.y][this.playerPosition.x] === Goal
 		};
 	}
 }
