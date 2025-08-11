@@ -4,7 +4,7 @@
 
 
 <main>
-    <h1 style="color:crimson; text-decoration: underline overline"><a href="/level/0">Start Game</a></h1>
+    <a class="button" href="/level/0">START</a>
 </main>
 
 
@@ -15,5 +15,20 @@
         align-items: center;
         justify-content: center;
         height: 100vh;
+    }
+
+    .button {
+        padding: 1rem 2rem;
+        font-size: 3rem;
+        color: #fff;
+        background-color: slategray;
+        border: none;
+        border-radius: 0.25rem;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+
+        &:hover {
+            background-color: darkorange;
+        }
     }
 </style>
