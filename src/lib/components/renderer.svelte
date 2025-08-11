@@ -12,10 +12,12 @@
     /* === PROPS ============================== */
     interface Props {
         level: Level;
+        transitioning: boolean;
     }
 
     let {
-        level
+        level,
+        transitioning = $bindable()
     }: Props = $props();
 
     /* === CONSTS ============================= */
@@ -44,6 +46,7 @@
     }
 
     /* === BINDINGS =========================== */
+    let svg: SVGElement;
     let player: SVGGElement;
 
     /* === FUNCTIONS ========================== */
@@ -63,7 +66,21 @@
     let playerTranslate = $derived(getTranslate(playerPosition));
 
     /* === FUNCTIONS ========================== */
+    export function getPlayerClientPosition(): Vec2 {
+        const svgDOMRect = svg.getBoundingClientRect();
+        const playerTranslateSnapshot = $state.snapshot(playerTranslate);
+        const playerPercentage: Vec2 = {
+            x: (playerTranslateSnapshot.x + strokeWidth + 0.5 * cellSize) / svgWidth,
+            y: (playerTranslateSnapshot.y + strokeWidth + 0.5 * cellSize) / svgHeight
+        };
+        return {
+            x: svgDOMRect.x + svgDOMRect.width * playerPercentage.x,
+            y: svgDOMRect.y + svgDOMRect.height * playerPercentage.y
+        };
+    }
+
     export function movePlayerTo(movement: Movement): void {
+        transitioning = true;
         let playerEndPosition: Vec2;
         let cellsMoved = 0;
 
@@ -78,7 +95,7 @@
                     cellsMoved = playerPosition.y + height - movement.end.y;
                 } else {
                     playerEndPosition = movement.end;
-                    cellsMoved = movement.end.y - playerPosition.y;
+                    cellsMoved = playerPosition.y - movement.end.y;
                 }
                 break;
             case Direction.Right:
@@ -123,6 +140,7 @@
             case null:
                 playerEndPosition = movement.end;
                 cellsMoved = 0;
+                transitioning = false;
                 break;
         }
 
@@ -135,6 +153,7 @@
     ) {
         if (e.propertyName !== "transform") return;
 
+        transitioning = false;
         if (
             (playerPosition.x >= 0 && playerPosition.x < width)
             && (playerPosition.y >= 0 && playerPosition.y < height)
@@ -155,6 +174,7 @@
 
 
 <svg
+    bind:this={svg}
     class="game"
     style={`
         --strokeWidth: ${strokeWidth}px;
@@ -170,6 +190,7 @@
         ${svgHeight}
     `}
     ontransitionend={handleTransitionEnd}
+    ontransitioncancel={handleTransitionEnd}
 >
     <!-- grid -->
     <g class="grid">
@@ -270,8 +291,8 @@
 <style lang="scss">
     .game {
         display: block;
-        width: var(--svgWidth);
-        height: var(--svgHeight);
+        width: 100%;
+        max-width: var(--svgWidth);
 
         .grid line, .border {
             stroke: black;

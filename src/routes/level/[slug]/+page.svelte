@@ -7,17 +7,4 @@
 
 
 
-<main>
-    <Game levelIndex={data.levelIndex} />
-</main>
-
-
-
-<style lang="scss">
-    main {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 100vh;
-    }
-</style>
+<Game levelIndex={data.levelIndex} />

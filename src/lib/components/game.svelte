@@ -1,7 +1,7 @@
 <script lang="ts">
     /* === IMPORTS ============================ */
     import { Game } from "$lib/game";
-    import type { Movement } from "$lib/types";
+    import type { Vec2, Movement } from "$lib/types";
     import Renderer from "$components/renderer.svelte";
 	import { Direction } from "$lib/types";
 	import { onMount } from "svelte";
@@ -18,33 +18,39 @@
 
     let renderer: Renderer;
 
+    /* === BINDINGS =========================== */
+    let controlArea: HTMLElement;
+
     /* === GAME =============================== */
     const level = levels[levelIndex]
     let game: Game = new Game(level);
 
-    function handleKeydown(
-        event: KeyboardEvent
-    ) {
+    /* === INTERACTIONS ======================= */
+    let currentPointerId: number | null = null;
+    let pointerStartPosition: Vec2 | null = null;
+
+    /* === RUNES ============================== */
+    let transitioning = $state(false);
+
+    /* === FUNCTIONS ========================== */
+    function move(direction: Direction | "reset"): void {
+        if (transitioning) return;
+
         let movement: Movement;
-    
-        switch (event.key) {
-            case "ArrowUp":
-            case "w":
+        switch (direction) {
+            case Direction.Up:
                 movement = game.movePlayer(Direction.Up);
                 break;
-            case "ArrowRight":
-            case "d":
+            case Direction.Right:
                 movement = game.movePlayer(Direction.Right);
                 break;
-            case "ArrowDown":
-            case "s":
+            case Direction.Down:
                 movement = game.movePlayer(Direction.Down);
                 break;
-            case "ArrowLeft":
-            case "a":
+            case Direction.Left:
                 movement = game.movePlayer(Direction.Left);
                 break;
-            case "Escape":
+            case "reset":
                 game.reset();
                 movement = {
                     start: { x: 0, y: 0 },
@@ -57,18 +63,162 @@
                 return;
         }
 
-        event.preventDefault();
         renderer.movePlayerTo(movement);
 
         if (movement.win) {
             const nextLevelIndex = (levelIndex + 1) % levels.length;
-            console.log("won. Going to " + nextLevelIndex);
             const currentUrl = new URL(window.location.href);
             currentUrl.pathname = `/level/${nextLevelIndex}`;
             window.location.href = currentUrl.toString();
         }
     }
 
+    function handleKeydown(
+        event: KeyboardEvent
+    ) {
+    
+        switch (event.key) {
+            case "ArrowUp":
+            case "w":
+                move(Direction.Up);
+                break;
+            case "ArrowRight":
+            case "d":
+                move(Direction.Right);
+                break;
+            case "ArrowDown":
+            case "s":
+                move(Direction.Down);
+                break;
+            case "ArrowLeft":
+            case "a":
+                move(Direction.Left);
+                break;
+            case "Escape":
+                move("reset");
+                break;
+            default:
+                return;
+        }
+
+        event.preventDefault();
+    }
+
+    function getDistanceBetween(pointA: Vec2, pointB: Vec2) {
+        return Math.sqrt(
+            (pointB.x - pointA.x) ** 2
+            + (pointB.y - pointA.y) ** 2
+        );
+    }
+
+    function handleGesture({ start, end }: {
+        start: Vec2; end: Vec2;
+    }) {
+         // 1. Calculate the angle between start and end positions.
+        const dx = end.x - start.x;
+        const dy = start.y - end.y;
+        const angleRadians = Math.atan2(dy, dx);
+        const angleDegrees = (angleRadians * 180 / Math.PI + 360) % 360;
+
+        // 2. Determine the move based on angle.
+        switch (true) {
+            case angleDegrees > 45 && angleDegrees <= 135:
+                move(Direction.Up);
+                break;
+            case angleDegrees > 315 || angleDegrees <= 45:
+                move(Direction.Right);
+                break;
+            case angleDegrees > 225 && angleDegrees <= 315:
+                move(Direction.Down);
+                break;
+            case angleDegrees > 135 && angleDegrees <= 225:
+                move(Direction.Left);
+                break;
+        }
+    }
+
+    function handlePointerDown(
+        e: PointerEvent & { currentTarget: EventTarget & HTMLElement; }
+    ) {
+        if (!e.isPrimary) return;
+        currentPointerId = e.pointerId;
+        pointerStartPosition = {
+            x: e.clientX,
+            y: e.clientY
+        };
+        controlArea.setPointerCapture(e.pointerId);
+    }
+
+    function handlePointerMove(
+        e: PointerEvent & { currentTarget: EventTarget & HTMLElement; }
+    ) {
+        if (
+            e.pointerId !== currentPointerId
+            || pointerStartPosition === null
+        ) return;
+
+        // 1. Determine if enough movement has occurred.
+        const pointerCurrentPosition = {
+            x: e.clientX,
+            y: e.clientY
+        };
+        const distanceBetween = getDistanceBetween(
+            pointerStartPosition,
+            pointerCurrentPosition
+        );
+        if (distanceBetween < 60) return;
+
+        // 2. Handle Gesture
+        handleGesture({
+            start: pointerStartPosition,
+            end: pointerCurrentPosition
+        });
+
+        // 3. Reset and release pointer.
+        currentPointerId = null;
+        pointerStartPosition = null;
+        controlArea.releasePointerCapture(e.pointerId);
+    }
+
+    function handlePointerUp(
+        e: PointerEvent & { currentTarget: EventTarget & HTMLElement; }
+    ) {
+        if (
+            e.pointerId !== currentPointerId
+            || pointerStartPosition === null
+        ) return;
+
+        // 1. Determine start position to use in angle calculation.
+        let startPosition: Vec2;
+        const pointerEndPosition = {
+            x: e.clientX,
+            y: e.clientY
+        };
+        const distanceBetween = getDistanceBetween(
+            pointerStartPosition,
+            pointerEndPosition
+        );
+        if (distanceBetween < 35) {
+            // Counts as a tap/click instead of a swipe.
+            // Movement will be calculated relative to player position.
+            startPosition = renderer.getPlayerClientPosition();
+        } else {
+            // Counts as a swipe. Movement will be calculated relative
+            // to the starting pointer position.
+            startPosition = pointerStartPosition
+        }
+        handleGesture({
+            start: startPosition,
+            end: pointerEndPosition
+        });
+
+        // 2. Reset and release pointer.
+        currentPointerId = null;
+        pointerStartPosition = null;
+        controlArea.releasePointerCapture(e.pointerId);
+    }
+
+    /* === LIFE CYCLES ======================== */
     onMount(() => {
         window.addEventListener("keydown", handleKeydown);
     })
@@ -76,5 +226,30 @@
 
 
 
+<main
+    bind:this={controlArea}
+    onpointerdown={handlePointerDown}
+    onpointermove={handlePointerMove}
+    onpointerup={handlePointerUp}
+    onpointercancel={handlePointerUp}
+>
+    <Renderer
+        bind:this={renderer}
+        {level}
+        bind:transitioning={transitioning}
+    />
+</main>
 
-<Renderer bind:this={renderer} {level} />
+
+
+<style lang="scss">
+    main {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100svh;
+        padding: 15px;
+        overflow: hidden;
+        touch-action: none;
+    }
+</style>
