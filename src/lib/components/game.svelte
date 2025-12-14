@@ -5,14 +5,17 @@
     import Renderer from "$components/renderer.svelte";
 	import { Direction } from "$lib/types";
 	import { onMount } from "svelte";
-	import { levels } from "$lib/levels";
+    import { menu } from "$lib/levels/menu";
+    import { stages } from "$lib/levels/stages";
 
     /* === PROPS ============================== */
     interface Props {
+        stageIndex: number;
         levelIndex: number;
     }
 
     let {
+        stageIndex,
         levelIndex
     }: Props = $props();
 
@@ -22,8 +25,13 @@
     let controlArea: HTMLElement;
 
     /* === GAME =============================== */
-    const level = levels[levelIndex]
+    console.log("Stage:", stageIndex, "Level:", levelIndex);
+    const level = levelIndex === -1 ?
+        menu[stageIndex] :
+        stages[stageIndex][levelIndex];
+    console.log("Loaded level:", level);
     let game: Game = new Game(level);
+    console.log("Initialized game:", game);
 
     /* === INTERACTIONS ======================= */
     let currentPointerId: number | null = null;
@@ -66,10 +74,29 @@
         renderer.movePlayerTo(movement);
 
         if (movement.win) {
-            const nextLevelIndex = (levelIndex + 1) % levels.length;
-            const currentUrl = new URL(window.location.href);
-            currentUrl.pathname = `/level/${nextLevelIndex}`;
-            window.location.href = currentUrl.toString();
+            if (levelIndex === stages[stageIndex].length - 1) {
+                // Last level in stage completed.
+                if (stageIndex === stages.length - 1) {
+                    // Last stage completed.
+                    // Redirect to start.
+                    window.location.href = `/0/-1`;
+                    return;
+                } else {
+                    // Proceed to next stage (redirect to menu first).
+                    const nextStageIndex = stageIndex + 1;
+                    const currentUrl = new URL(window.location.href);
+                    currentUrl.pathname = `/${nextStageIndex}/-1`;
+                    window.location.href = currentUrl.toString();
+                    return;
+                }
+            } else {
+                // Proceed to next level.
+                const nextLevelIndex = levelIndex + 1;
+                const currentUrl = new URL(window.location.href);
+                currentUrl.pathname = `/${stageIndex}/${nextLevelIndex}`;
+                window.location.href = currentUrl.toString();
+                return;
+            }
         }
     }
 

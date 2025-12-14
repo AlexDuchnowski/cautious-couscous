@@ -87,7 +87,6 @@ export class Game {
 				}
 				break;
 			case Direction.Left:
-				let count = 0;
 				while (
 					![Wall, VTunnel].includes(
 						this.grid[this.playerPosition.y][mod(this.playerPosition.x - 1, this.gridWidth)]
@@ -95,7 +94,6 @@ export class Game {
 				) {
 					moved = true;
 					this.playerPosition.x = mod(this.playerPosition.x - 1, this.gridWidth);
-					count++;
 					if ([Sticky, Goal].includes(this.grid[this.playerPosition.y][this.playerPosition.x])) {
 						break;
 					}

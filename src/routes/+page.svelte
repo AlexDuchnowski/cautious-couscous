@@ -4,7 +4,7 @@
 
 
 <main>
-    <a class="button" href="/level/0">START</a>
+    <a class="button" href="/0/-1">START</a>
 </main>
 
 

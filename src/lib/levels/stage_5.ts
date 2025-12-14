@@ -1,8 +1,8 @@
-import { CellType, type Level } from './types';
+import { CellType, type Level } from '../types';
 
 const { Empty, Goal, Wall, HTunnel, VTunnel, Sticky } = CellType;
 
-export const levels: Level[] = [
+export const stage_5: Level[] = [
 	{
 		grid: [
 			[Empty, Wall, Empty, Wall],

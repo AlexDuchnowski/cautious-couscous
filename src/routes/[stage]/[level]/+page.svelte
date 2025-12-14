@@ -7,4 +7,4 @@
 
 
 
-<Game levelIndex={data.levelIndex} />
+<Game stageIndex={data.stageIndex} levelIndex={data.levelIndex} />
