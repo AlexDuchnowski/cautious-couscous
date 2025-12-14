@@ -310,7 +310,7 @@
             }
 
             .type-1 {
-                fill: chartreuse;
+                fill: darkorange;
             }
 
             .type-2 {
@@ -335,6 +335,7 @@
 
             * {
                 fill: darkorange;
+                stroke: slategray;
             }
         }
 
