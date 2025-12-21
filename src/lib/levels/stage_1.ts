@@ -1,36 +1,119 @@
-import { CellType, type Level } from '../types';
-
-const { Empty, Goal, Wall, HTunnel, VTunnel, Sticky } = CellType;
+import { type Level, Empty, Wall, Goal, Sticky } from '../types';
 
 export const stage_1: Level[] = [
 	{
 		grid: [
-			[Empty, Sticky, Empty, Empty],
-			[Wall, Empty, Empty, Empty],
-			[Empty, Wall, Goal, Empty],
-			[Wall, Empty, Wall, Wall]
+			[new Empty(), new Sticky(), new Empty(), new Empty()],
+			[new Wall(), new Empty(), new Empty(), new Empty()],
+			[new Empty(), new Wall(), new Goal(), new Empty()],
+			[new Wall(), new Empty(), new Wall(), new Wall()]
 		],
 		playerPosition: { x: 0, y: 0 }
 	},
 	{
 		grid: [
-			[Empty, Empty, Empty, Sticky, Empty],
-			[Empty, Empty, Empty, Sticky, Empty],
-			[Empty, Empty, Goal, Empty, Empty],
-			[Sticky, Empty, Empty, Empty, Sticky],
-			[Empty, Sticky, Sticky, Empty, Sticky]
+			[new Empty(), new Empty(), new Empty(), new Sticky(), new Empty()],
+			[new Empty(), new Empty(), new Empty(), new Sticky(), new Empty()],
+			[new Empty(), new Empty(), new Goal(), new Empty(), new Empty()],
+			[new Sticky(), new Empty(), new Empty(), new Empty(), new Sticky()],
+			[new Empty(), new Sticky(), new Sticky(), new Empty(), new Sticky()]
 		],
 		playerPosition: { x: 0, y: 0 }
 	},
 	{
 		grid: [
-			[Empty, Wall, Empty, Empty, Empty, Wall, Empty],
-			[Empty, Empty, Wall, Empty, Wall, Empty, Empty],
-			[Empty, Empty, Wall, Goal, Wall, Empty, Empty],
-			[Empty, Empty, Empty, Wall, Empty, Empty, Empty],
-			[Empty, Wall, Wall, Wall, Empty, Empty, Empty],
-			[Empty, Empty, Empty, Wall, Wall, Empty, Wall],
-			[Wall, Empty, Empty, Sticky, Empty, Wall, Empty]
+			[
+				new Sticky(),
+				new Empty(),
+				new Sticky(),
+				new Empty(),
+				new Sticky(),
+				new Empty(),
+				new Sticky(),
+				new Empty()
+			],
+			[
+				new Empty(),
+				new Sticky(),
+				new Empty(),
+				new Sticky(),
+				new Empty(),
+				new Sticky(),
+				new Empty(),
+				new Sticky()
+			],
+			[
+				new Sticky(),
+				new Empty(),
+				new Sticky(),
+				new Empty(),
+				new Sticky(),
+				new Empty(),
+				new Sticky(),
+				new Empty()
+			],
+			[
+				new Empty(),
+				new Sticky(),
+				new Empty(),
+				new Sticky(),
+				new Empty(),
+				new Sticky(),
+				new Empty(),
+				new Sticky()
+			],
+			[
+				new Sticky(),
+				new Empty(),
+				new Sticky(),
+				new Empty(),
+				new Sticky(),
+				new Empty(),
+				new Sticky(),
+				new Empty()
+			],
+			[
+				new Empty(),
+				new Sticky(),
+				new Empty(),
+				new Sticky(),
+				new Empty(),
+				new Sticky(),
+				new Empty(),
+				new Sticky()
+			],
+			[
+				new Sticky(),
+				new Empty(),
+				new Sticky(),
+				new Empty(),
+				new Wall(),
+				new Empty(),
+				new Sticky(),
+				new Empty()
+			],
+			[
+				new Empty(),
+				new Sticky(),
+				new Empty(),
+				new Sticky(),
+				new Empty(),
+				new Sticky(),
+				new Empty(),
+				new Goal()
+			]
+		],
+		playerPosition: { x: 0, y: 0 }
+	},
+	{
+		grid: [
+			[new Empty(), new Wall(), new Empty(), new Empty(), new Empty(), new Wall(), new Empty()],
+			[new Empty(), new Empty(), new Wall(), new Empty(), new Wall(), new Empty(), new Empty()],
+			[new Empty(), new Empty(), new Wall(), new Goal(), new Wall(), new Empty(), new Empty()],
+			[new Empty(), new Empty(), new Empty(), new Wall(), new Empty(), new Empty(), new Empty()],
+			[new Empty(), new Wall(), new Wall(), new Wall(), new Empty(), new Empty(), new Empty()],
+			[new Empty(), new Empty(), new Empty(), new Wall(), new Wall(), new Empty(), new Wall()],
+			[new Wall(), new Empty(), new Empty(), new Sticky(), new Empty(), new Wall(), new Empty()]
 		],
 		playerPosition: { x: 1, y: 1 }
 	}

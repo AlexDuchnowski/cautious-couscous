@@ -1,51 +1,49 @@
-import { CellType, type Level } from '../types';
-
-const { Empty, Goal, Wall, HTunnel, VTunnel, Sticky } = CellType;
+import { type Level, Empty, Wall, Goal } from '../types';
 
 export const stage_0: Level[] = [
 	{
 		grid: [
-			[Empty, Wall, Empty, Wall],
-			[Empty, Empty, Empty, Wall],
-			[Wall, Empty, Empty, Empty],
-			[Wall, Wall, Wall, Goal]
+			[new Empty(), new Wall(), new Empty(), new Wall()],
+			[new Empty(), new Empty(), new Empty(), new Wall()],
+			[new Wall(), new Empty(), new Empty(), new Empty()],
+			[new Wall(), new Wall(), new Wall(), new Goal()]
 		],
 		playerPosition: { x: 0, y: 0 }
 	},
 	{
 		grid: [
-			[Empty, Empty, Empty, Wall],
-			[Empty, Wall, Empty, Empty],
-			[Wall, Empty, Wall, Empty],
-			[Empty, Empty, Empty, Goal]
+			[new Empty(), new Empty(), new Empty(), new Wall()],
+			[new Empty(), new Wall(), new Empty(), new Empty()],
+			[new Wall(), new Empty(), new Wall(), new Empty()],
+			[new Empty(), new Empty(), new Empty(), new Goal()]
 		],
 		playerPosition: { x: 0, y: 0 }
 	},
 	{
 		grid: [
-			[Empty, Empty, Empty, Wall],
-			[Wall, Empty, Wall, Goal],
-			[Wall, Wall, Wall, Empty],
-			[Empty, Empty, Wall, Empty]
+			[new Empty(), new Empty(), new Empty(), new Wall()],
+			[new Wall(), new Empty(), new Wall(), new Goal()],
+			[new Wall(), new Wall(), new Wall(), new Empty()],
+			[new Empty(), new Empty(), new Wall(), new Empty()]
 		],
 		playerPosition: { x: 1, y: 1 }
 	},
 	{
 		grid: [
-			[Wall, Empty, Empty, Wall],
-			[Empty, Empty, Wall, Empty],
-			[Wall, Wall, Wall, Wall],
-			[Empty, Empty, Wall, Goal]
+			[new Wall(), new Empty(), new Empty(), new Wall()],
+			[new Empty(), new Empty(), new Wall(), new Empty()],
+			[new Wall(), new Wall(), new Wall(), new Wall()],
+			[new Empty(), new Empty(), new Wall(), new Goal()]
 		],
 		playerPosition: { x: 1, y: 1 }
 	},
 	{
 		grid: [
-			[Empty, Wall, Empty, Wall, Empty],
-			[Empty, Empty, Empty, Wall, Empty],
-			[Wall, Wall, Goal, Wall, Empty],
-			[Empty, Wall, Wall, Empty, Empty],
-			[Empty, Empty, Wall, Empty, Wall]
+			[new Empty(), new Wall(), new Empty(), new Wall(), new Empty()],
+			[new Empty(), new Empty(), new Empty(), new Wall(), new Empty()],
+			[new Wall(), new Wall(), new Goal(), new Wall(), new Empty()],
+			[new Empty(), new Wall(), new Wall(), new Empty(), new Empty()],
+			[new Empty(), new Empty(), new Wall(), new Empty(), new Wall()]
 		],
 		playerPosition: { x: 3, y: 3 }
 	}
