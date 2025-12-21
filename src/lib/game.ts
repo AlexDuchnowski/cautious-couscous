@@ -1,7 +1,5 @@
 import type { Grid, Level, Vec2, Movement } from './types';
-import { Direction, CellType } from './types';
-
-const { Empty, Goal, Wall, HTunnel, VTunnel, Sticky } = CellType;
+import { Direction, Empty, Wall, Sticky, Goal, Portal } from './types';
 
 export function mod(n: number, m: number): number {
 	return ((n % m) + m) % m;
@@ -49,52 +47,84 @@ export class Game {
 		switch (direction) {
 			case Direction.Up:
 				while (
-					![Wall, HTunnel].includes(
-						this.grid[mod(this.playerPosition.y - 1, this.gridHeight)][this.playerPosition.x]
+					!(
+						this.grid[mod(this.playerPosition.y - 1, this.gridHeight)][
+							this.playerPosition.x
+						] instanceof Wall
 					)
 				) {
 					moved = true;
 					this.playerPosition.y = mod(this.playerPosition.y - 1, this.gridHeight);
-					if ([Sticky, Goal].includes(this.grid[this.playerPosition.y][this.playerPosition.x])) {
+					if (
+						[Sticky, Goal]
+							.map(
+								(clazz) => this.grid[this.playerPosition.y][this.playerPosition.x] instanceof clazz
+							)
+							.includes(true)
+					) {
 						break;
 					}
 				}
 				break;
 			case Direction.Right:
 				while (
-					![Wall, VTunnel].includes(
-						this.grid[this.playerPosition.y][mod(this.playerPosition.x + 1, this.gridWidth)]
+					!(
+						this.grid[this.playerPosition.y][
+							mod(this.playerPosition.x + 1, this.gridWidth)
+						] instanceof Wall
 					)
 				) {
 					moved = true;
 					this.playerPosition.x = mod(this.playerPosition.x + 1, this.gridWidth);
-					if ([Sticky, Goal].includes(this.grid[this.playerPosition.y][this.playerPosition.x])) {
+					if (
+						[Sticky, Goal]
+							.map(
+								(clazz) => this.grid[this.playerPosition.y][this.playerPosition.x] instanceof clazz
+							)
+							.includes(true)
+					) {
 						break;
 					}
 				}
 				break;
 			case Direction.Down:
 				while (
-					![Wall, HTunnel].includes(
-						this.grid[mod(this.playerPosition.y + 1, this.gridHeight)][this.playerPosition.x]
+					!(
+						this.grid[mod(this.playerPosition.y + 1, this.gridHeight)][
+							this.playerPosition.x
+						] instanceof Wall
 					)
 				) {
 					moved = true;
 					this.playerPosition.y = mod(this.playerPosition.y + 1, this.gridHeight);
-					if ([Sticky, Goal].includes(this.grid[this.playerPosition.y][this.playerPosition.x])) {
+					if (
+						[Sticky, Goal]
+							.map(
+								(clazz) => this.grid[this.playerPosition.y][this.playerPosition.x] instanceof clazz
+							)
+							.includes(true)
+					) {
 						break;
 					}
 				}
 				break;
 			case Direction.Left:
 				while (
-					![Wall, VTunnel].includes(
-						this.grid[this.playerPosition.y][mod(this.playerPosition.x - 1, this.gridWidth)]
+					!(
+						this.grid[this.playerPosition.y][
+							mod(this.playerPosition.x - 1, this.gridWidth)
+						] instanceof Wall
 					)
 				) {
 					moved = true;
 					this.playerPosition.x = mod(this.playerPosition.x - 1, this.gridWidth);
-					if ([Sticky, Goal].includes(this.grid[this.playerPosition.y][this.playerPosition.x])) {
+					if (
+						[Sticky, Goal]
+							.map(
+								(clazz) => this.grid[this.playerPosition.y][this.playerPosition.x] instanceof clazz
+							)
+							.includes(true)
+					) {
 						break;
 					}
 				}

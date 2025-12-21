@@ -1,6 +1,4 @@
-import { CellType, type Level } from '../types';
-
-const { Empty, Goal, Wall, HTunnel, VTunnel, Sticky } = CellType;
+import { type Level, Empty, Wall, Goal, Sticky } from '../types';
 
 export const menu: Level[] = [
 	{
