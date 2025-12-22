@@ -38,6 +38,9 @@
     let currentPointerId: number | null = null;
     let pointerStartPosition: Vec2 | null = null;
 
+    /* === ANIMATIONS ========================= */
+    let playTransitionEnded: ((value: boolean) => void) | null;
+
     /* === RUNES ============================== */
     let transitioning = $state(false);
 
@@ -76,12 +79,16 @@
         renderer.movePlayerTo(movement);
 
         if (movement.win) {
+            const playerTransitionPromise = new Promise((resolve) => {
+                playTransitionEnded = resolve;
+            });
+            await playerTransitionPromise;
+            
             if (levelIndex === stages[stageIndex].length - 1) {
                 // Last level in stage completed.
                 if (stageIndex === stages.length - 1) {
                     // Last stage completed.
                     // Redirect to start.
-                    await tick();
                     window.location.href = `/0/-1`;
                     return;
                 } else {
@@ -89,7 +96,6 @@
                     const nextStageIndex = stageIndex + 1;
                     const currentUrl = new URL(window.location.href);
                     currentUrl.pathname = `/${nextStageIndex}/-1`;
-                    await tick();
                     window.location.href = currentUrl.toString();
                     return;
                 }
@@ -268,6 +274,10 @@
         bind:this={renderer}
         {level}
         bind:transitioning={transitioning}
+        onPlayerTransitionEnd={(event) => {
+            if (event.propertyName === "transform")
+                playTransitionEnded?.(true);
+        }}
     />
 </main>
 

@@ -18,11 +18,14 @@
     interface Props {
         level: Level;
         transitioning: boolean;
+        /** The player `<g>` element's `ontransitionend` event callback. */
+        onPlayerTransitionEnd: (event: TransitionEvent & { currentTarget: EventTarget & SVGGElement }) => void;
     }
 
     let {
         level,
-        transitioning = $bindable()
+        transitioning = $bindable(),
+        onPlayerTransitionEnd
     }: Props = $props();
 
     /* === CONSTS ============================= */
@@ -231,7 +234,10 @@
     </g>
 
     <!-- player -->
-    <g bind:this={player} class="player">
+    <g
+        bind:this={player}
+        class="player"
+        ontransitionend={onPlayerTransitionEnd}>
         <!-- center -->
         <circle
             cx={strokeWidth + 0.5 * cellSize}
