@@ -3,97 +3,97 @@ import { type Level, Empty, Wall, Goal, Sticky } from '../types';
 export const menu: Level[] = [
 	{
 		grid: [
-			[Wall, Wall, Wall, Wall, Wall, Wall, Wall],
-			[Wall, Empty, Empty, Goal, Wall, Goal, Wall],
-			[Wall, Wall, Wall, Wall, Wall, Wall, Wall],
-			[Wall, Goal, Wall, Goal, Wall, Goal, Wall],
-			[Wall, Wall, Wall, Wall, Wall, Wall, Wall],
-			[Wall, Goal, Wall, Goal, Wall, Goal, Wall],
-			[Wall, Wall, Wall, Wall, Wall, Wall, Wall]
+			[new Wall(), new Wall(), new Wall(), new Wall(), new Wall(), new Wall(), new Wall()],
+			[new Wall(), new Empty(), new Empty(), new Goal(), new Wall(), new Goal(), new Wall()],
+			[new Wall(), new Wall(), new Wall(), new Wall(), new Wall(), new Wall(), new Wall()],
+			[new Wall(), new Goal(), new Wall(), new Goal(), new Wall(), new Goal(), new Wall()],
+			[new Wall(), new Wall(), new Wall(), new Wall(), new Wall(), new Wall(), new Wall()],
+			[new Wall(), new Goal(), new Wall(), new Goal(), new Wall(), new Goal(), new Wall()],
+			[new Wall(), new Wall(), new Wall(), new Wall(), new Wall(), new Wall(), new Wall()]
 		],
 		playerPosition: { x: 1, y: 1 }
 	},
 	{
 		grid: [
-			[Wall, Wall, Wall, Wall, Wall, Wall, Wall],
-			[Wall, Empty, Empty, Empty, Empty, Goal, Wall],
-			[Wall, Wall, Wall, Wall, Wall, Wall, Wall],
-			[Wall, Goal, Wall, Goal, Wall, Goal, Wall],
-			[Wall, Wall, Wall, Wall, Wall, Wall, Wall],
-			[Wall, Goal, Wall, Goal, Wall, Goal, Wall],
-			[Wall, Wall, Wall, Wall, Wall, Wall, Wall]
+			[new Wall(), new Wall(), new Wall(), new Wall(), new Wall(), new Wall(), new Wall()],
+			[new Wall(), new Empty(), new Empty(), new Empty(), new Empty(), new Goal(), new Wall()],
+			[new Wall(), new Wall(), new Wall(), new Wall(), new Wall(), new Wall(), new Wall()],
+			[new Wall(), new Goal(), new Wall(), new Goal(), new Wall(), new Goal(), new Wall()],
+			[new Wall(), new Wall(), new Wall(), new Wall(), new Wall(), new Wall(), new Wall()],
+			[new Wall(), new Goal(), new Wall(), new Goal(), new Wall(), new Goal(), new Wall()],
+			[new Wall(), new Wall(), new Wall(), new Wall(), new Wall(), new Wall(), new Wall()]
 		],
 		playerPosition: { x: 3, y: 1 }
 	},
 	{
 		grid: [
-			[Wall, Wall, Wall, Wall, Wall, Wall, Wall],
-			[Wall, Empty, Empty, Empty, Empty, Empty, Wall],
-			[Wall, Wall, Wall, Wall, Wall, Empty, Wall],
-			[Wall, Goal, Wall, Goal, Wall, Goal, Wall],
-			[Wall, Wall, Wall, Wall, Wall, Wall, Wall],
-			[Wall, Goal, Wall, Goal, Wall, Goal, Wall],
-			[Wall, Wall, Wall, Wall, Wall, Wall, Wall]
+			[new Wall(), new Wall(), new Wall(), new Wall(), new Wall(), new Wall(), new Wall()],
+			[new Wall(), new Empty(), new Empty(), new Empty(), new Empty(), new Empty(), new Wall()],
+			[new Wall(), new Wall(), new Wall(), new Wall(), new Wall(), new Empty(), new Wall()],
+			[new Wall(), new Goal(), new Wall(), new Goal(), new Wall(), new Goal(), new Wall()],
+			[new Wall(), new Wall(), new Wall(), new Wall(), new Wall(), new Wall(), new Wall()],
+			[new Wall(), new Goal(), new Wall(), new Goal(), new Wall(), new Goal(), new Wall()],
+			[new Wall(), new Wall(), new Wall(), new Wall(), new Wall(), new Wall(), new Wall()]
 		],
 		playerPosition: { x: 5, y: 1 }
 	},
 	{
 		grid: [
-			[Wall, Wall, Wall, Wall, Wall, Wall, Wall],
-			[Wall, Empty, Empty, Empty, Empty, Empty, Wall],
-			[Wall, Wall, Wall, Wall, Wall, Empty, Wall],
-			[Wall, Goal, Wall, Goal, Wall, Empty, Wall],
-			[Wall, Wall, Wall, Wall, Wall, Empty, Wall],
-			[Wall, Goal, Wall, Goal, Wall, Goal, Wall],
-			[Wall, Wall, Wall, Wall, Wall, Wall, Wall]
+			[new Wall(), new Wall(), new Wall(), new Wall(), new Wall(), new Wall(), new Wall()],
+			[new Wall(), new Empty(), new Empty(), new Empty(), new Empty(), new Empty(), new Wall()],
+			[new Wall(), new Wall(), new Wall(), new Wall(), new Wall(), new Empty(), new Wall()],
+			[new Wall(), new Goal(), new Wall(), new Goal(), new Wall(), new Empty(), new Wall()],
+			[new Wall(), new Wall(), new Wall(), new Wall(), new Wall(), new Empty(), new Wall()],
+			[new Wall(), new Goal(), new Wall(), new Goal(), new Wall(), new Goal(), new Wall()],
+			[new Wall(), new Wall(), new Wall(), new Wall(), new Wall(), new Wall(), new Wall()]
 		],
 		playerPosition: { x: 5, y: 3 }
 	},
 	{
 		grid: [
-			[Wall, Wall, Wall, Wall, Wall, Wall, Wall],
-			[Wall, Empty, Empty, Empty, Empty, Empty, Wall],
-			[Wall, Wall, Wall, Wall, Wall, Empty, Wall],
-			[Wall, Goal, Wall, Goal, Wall, Empty, Wall],
-			[Wall, Wall, Wall, Wall, Wall, Empty, Wall],
-			[Wall, Goal, Wall, Goal, Empty, Empty, Wall],
-			[Wall, Wall, Wall, Wall, Wall, Wall, Wall]
+			[new Wall(), new Wall(), new Wall(), new Wall(), new Wall(), new Wall(), new Wall()],
+			[new Wall(), new Empty(), new Empty(), new Empty(), new Empty(), new Empty(), new Wall()],
+			[new Wall(), new Wall(), new Wall(), new Wall(), new Wall(), new Empty(), new Wall()],
+			[new Wall(), new Goal(), new Wall(), new Goal(), new Wall(), new Empty(), new Wall()],
+			[new Wall(), new Wall(), new Wall(), new Wall(), new Wall(), new Empty(), new Wall()],
+			[new Wall(), new Goal(), new Wall(), new Goal(), new Empty(), new Empty(), new Wall()],
+			[new Wall(), new Wall(), new Wall(), new Wall(), new Wall(), new Wall(), new Wall()]
 		],
 		playerPosition: { x: 5, y: 5 }
 	},
 	{
 		grid: [
-			[Wall, Wall, Wall, Wall, Wall, Wall, Wall],
-			[Wall, Empty, Empty, Empty, Empty, Empty, Wall],
-			[Wall, Wall, Wall, Wall, Wall, Empty, Wall],
-			[Wall, Goal, Wall, Goal, Wall, Empty, Wall],
-			[Wall, Wall, Wall, Wall, Wall, Empty, Wall],
-			[Wall, Goal, Empty, Empty, Empty, Empty, Wall],
-			[Wall, Wall, Wall, Wall, Wall, Wall, Wall]
+			[new Wall(), new Wall(), new Wall(), new Wall(), new Wall(), new Wall(), new Wall()],
+			[new Wall(), new Empty(), new Empty(), new Empty(), new Empty(), new Empty(), new Wall()],
+			[new Wall(), new Wall(), new Wall(), new Wall(), new Wall(), new Empty(), new Wall()],
+			[new Wall(), new Goal(), new Wall(), new Goal(), new Wall(), new Empty(), new Wall()],
+			[new Wall(), new Wall(), new Wall(), new Wall(), new Wall(), new Empty(), new Wall()],
+			[new Wall(), new Goal(), new Empty(), new Empty(), new Empty(), new Empty(), new Wall()],
+			[new Wall(), new Wall(), new Wall(), new Wall(), new Wall(), new Wall(), new Wall()]
 		],
 		playerPosition: { x: 3, y: 5 }
 	},
 	{
 		grid: [
-			[Wall, Wall, Wall, Wall, Wall, Wall, Wall],
-			[Wall, Empty, Empty, Empty, Empty, Empty, Wall],
-			[Wall, Wall, Wall, Wall, Wall, Empty, Wall],
-			[Wall, Goal, Wall, Goal, Wall, Empty, Wall],
-			[Wall, Empty, Wall, Wall, Wall, Empty, Wall],
-			[Wall, Empty, Empty, Empty, Empty, Empty, Wall],
-			[Wall, Wall, Wall, Wall, Wall, Wall, Wall]
+			[new Wall(), new Wall(), new Wall(), new Wall(), new Wall(), new Wall(), new Wall()],
+			[new Wall(), new Empty(), new Empty(), new Empty(), new Empty(), new Empty(), new Wall()],
+			[new Wall(), new Wall(), new Wall(), new Wall(), new Wall(), new Empty(), new Wall()],
+			[new Wall(), new Goal(), new Wall(), new Goal(), new Wall(), new Empty(), new Wall()],
+			[new Wall(), new Empty(), new Wall(), new Wall(), new Wall(), new Empty(), new Wall()],
+			[new Wall(), new Empty(), new Empty(), new Empty(), new Empty(), new Empty(), new Wall()],
+			[new Wall(), new Wall(), new Wall(), new Wall(), new Wall(), new Wall(), new Wall()]
 		],
 		playerPosition: { x: 1, y: 5 }
 	},
 	{
 		grid: [
-			[Wall, Wall, Wall, Wall, Wall, Wall, Wall],
-			[Wall, Empty, Empty, Empty, Empty, Empty, Wall],
-			[Wall, Wall, Wall, Wall, Wall, Empty, Wall],
-			[Wall, Empty, Empty, Goal, Wall, Empty, Wall],
-			[Wall, Empty, Wall, Wall, Wall, Empty, Wall],
-			[Wall, Empty, Empty, Empty, Empty, Empty, Wall],
-			[Wall, Wall, Wall, Wall, Wall, Wall, Wall]
+			[new Wall(), new Wall(), new Wall(), new Wall(), new Wall(), new Wall(), new Wall()],
+			[new Wall(), new Empty(), new Empty(), new Empty(), new Empty(), new Empty(), new Wall()],
+			[new Wall(), new Wall(), new Wall(), new Wall(), new Wall(), new Empty(), new Wall()],
+			[new Wall(), new Empty(), new Empty(), new Goal(), new Wall(), new Empty(), new Wall()],
+			[new Wall(), new Empty(), new Wall(), new Wall(), new Wall(), new Empty(), new Wall()],
+			[new Wall(), new Empty(), new Empty(), new Empty(), new Empty(), new Empty(), new Wall()],
+			[new Wall(), new Wall(), new Wall(), new Wall(), new Wall(), new Wall(), new Wall()]
 		],
 		playerPosition: { x: 1, y: 3 }
 	}

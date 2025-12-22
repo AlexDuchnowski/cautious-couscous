@@ -1,5 +1,5 @@
-import type { Grid, Level, Vec2, Movement } from './types';
-import { Direction, Empty, Wall, Sticky, Goal, Portal } from './types';
+import type { Grid, Level, Vec2, Movement, PortalInfo } from './types';
+import { Direction, Wall, Sticky, Goal, Portal } from './types';
 
 export function mod(n: number, m: number): number {
 	return ((n % m) + m) % m;
@@ -39,10 +39,31 @@ export class Game {
 		return this.playerPosition;
 	}
 
+	movementStops(): boolean {
+		const cell = this.grid[this.playerPosition.y][this.playerPosition.x];
+		return cell instanceof Sticky || cell instanceof Goal;
+	}
+
+	teleports(): PortalInfo | null {
+		const cell = this.grid[this.playerPosition.y][this.playerPosition.x];
+		if (cell instanceof Portal) {
+			const partner = cell.partnerCoords;
+			const entryPosition = { ...this.playerPosition };
+			this.playerPosition = { x: partner.x, y: partner.y };
+			const exitPosition = { ...this.playerPosition };
+			return {
+				color: cell.color,
+				entryPosition,
+				exitPosition
+			};
+		}
+		return null;
+	}
+
 	movePlayer(direction: Direction): Movement {
 		let startPos = this.playerPosition;
-
 		let moved = false;
+		const teleportations: PortalInfo[] = [];
 
 		switch (direction) {
 			case Direction.Up:
@@ -55,14 +76,13 @@ export class Game {
 				) {
 					moved = true;
 					this.playerPosition.y = mod(this.playerPosition.y - 1, this.gridHeight);
-					if (
-						[Sticky, Goal]
-							.map(
-								(clazz) => this.grid[this.playerPosition.y][this.playerPosition.x] instanceof clazz
-							)
-							.includes(true)
-					) {
+					if (this.movementStops()) {
 						break;
+					} else {
+						const teleportation = this.teleports();
+						if (teleportation) {
+							teleportations.push(teleportation);
+						}
 					}
 				}
 				break;
@@ -76,14 +96,13 @@ export class Game {
 				) {
 					moved = true;
 					this.playerPosition.x = mod(this.playerPosition.x + 1, this.gridWidth);
-					if (
-						[Sticky, Goal]
-							.map(
-								(clazz) => this.grid[this.playerPosition.y][this.playerPosition.x] instanceof clazz
-							)
-							.includes(true)
-					) {
+					if (this.movementStops()) {
 						break;
+					} else {
+						const teleportation = this.teleports();
+						if (teleportation) {
+							teleportations.push(teleportation);
+						}
 					}
 				}
 				break;
@@ -97,14 +116,13 @@ export class Game {
 				) {
 					moved = true;
 					this.playerPosition.y = mod(this.playerPosition.y + 1, this.gridHeight);
-					if (
-						[Sticky, Goal]
-							.map(
-								(clazz) => this.grid[this.playerPosition.y][this.playerPosition.x] instanceof clazz
-							)
-							.includes(true)
-					) {
+					if (this.movementStops()) {
 						break;
+					} else {
+						const teleportation = this.teleports();
+						if (teleportation) {
+							teleportations.push(teleportation);
+						}
 					}
 				}
 				break;
@@ -118,14 +136,13 @@ export class Game {
 				) {
 					moved = true;
 					this.playerPosition.x = mod(this.playerPosition.x - 1, this.gridWidth);
-					if (
-						[Sticky, Goal]
-							.map(
-								(clazz) => this.grid[this.playerPosition.y][this.playerPosition.x] instanceof clazz
-							)
-							.includes(true)
-					) {
+					if (this.movementStops()) {
 						break;
+					} else {
+						const teleportation = this.teleports();
+						if (teleportation) {
+							teleportations.push(teleportation);
+						}
 					}
 				}
 				break;
@@ -135,7 +152,8 @@ export class Game {
 			start: startPos,
 			end: { ...this.playerPosition },
 			d: moved ? direction : null,
-			win: this.grid[this.playerPosition.y][this.playerPosition.x] === Goal
+			win: this.grid[this.playerPosition.y][this.playerPosition.x] instanceof Goal,
+			teleportations
 		};
 	}
 }

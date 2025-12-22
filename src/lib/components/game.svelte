@@ -1,5 +1,6 @@
 <script lang="ts">
     /* === IMPORTS ============================ */
+    import { tick } from "svelte";
     import { Game } from "$lib/game";
     import type { Vec2, Movement } from "$lib/types";
     import Renderer from "$components/renderer.svelte";
@@ -41,7 +42,7 @@
     let transitioning = $state(false);
 
     /* === FUNCTIONS ========================== */
-    function move(direction: Direction | "reset"): void {
+    async function move(direction: Direction | "reset"): Promise<void> {
         if (transitioning) return;
 
         let movement: Movement;
@@ -79,6 +80,7 @@
                 if (stageIndex === stages.length - 1) {
                     // Last stage completed.
                     // Redirect to start.
+                    await tick();
                     window.location.href = `/0/-1`;
                     return;
                 } else {
@@ -86,6 +88,7 @@
                     const nextStageIndex = stageIndex + 1;
                     const currentUrl = new URL(window.location.href);
                     currentUrl.pathname = `/${nextStageIndex}/-1`;
+                    await tick();
                     window.location.href = currentUrl.toString();
                     return;
                 }

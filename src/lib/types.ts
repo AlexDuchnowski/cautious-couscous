@@ -5,13 +5,13 @@ export enum Direction {
 	Left
 }
 
-class CellTypeClass {}
+export class CellClass {}
 
-export class Empty extends CellTypeClass {}
-export class Wall extends CellTypeClass {}
-export class Goal extends CellTypeClass {}
-export class Sticky extends CellTypeClass {}
-export class Portal extends CellTypeClass {
+export class Empty extends CellClass {}
+export class Wall extends CellClass {}
+export class Goal extends CellClass {}
+export class Sticky extends CellClass {}
+export class Portal extends CellClass {
 	color: number;
 	partnerCoords: { x: number; y: number };
 
@@ -22,7 +22,7 @@ export class Portal extends CellTypeClass {
 	}
 }
 
-export type Grid = CellTypeClass[][];
+export type Grid = CellClass[][];
 
 export type Vec2 = { x: number; y: number };
 
@@ -31,12 +31,16 @@ export type Level = {
 	playerPosition: Vec2;
 };
 
+export type PortalInfo = {
+	color: number;
+	entryPosition: Vec2;
+	exitPosition: Vec2;
+};
+
 export type Movement = {
 	start: Vec2;
 	end: Vec2;
 	d: Direction | null;
 	win: boolean;
-	teleportationStart?: Vec2;
-	teleportationEnd?: Vec2;
-	portalColor?: Number;
+	teleportations: PortalInfo[];
 };

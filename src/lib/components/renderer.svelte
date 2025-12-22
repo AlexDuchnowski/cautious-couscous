@@ -1,8 +1,12 @@
 <script lang="ts">
     /* === IMPORTS ============================ */
     import {
-        CellType,
+        CellClass,
         Direction,
+        Empty,
+        Wall,
+        Goal,
+        Sticky,
         type Level,
         type Movement,
         type Vec2
@@ -31,12 +35,12 @@
     const svgWidth = width * cellSize + (width * strokeWidth + 2 * strokeWidth) + margin * 2;
     const svgHeight = height * cellSize + (height * strokeWidth + 2 * strokeWidth) + margin * 2;
     const cells: {
-        type: Omit<CellType, CellType.Empty>;
+        type: CellClass;
         position: Vec2;
     }[] = [];
     for(let x = 0; x < width; x++) {
         for (let y = 0; y < height; y++) {
-            if (level.grid[y][x] !== CellType.Empty) {
+            if (!(level.grid[y][x] instanceof Empty)) {
                 cells.push({
                     type: level.grid[y][x],
                     position: { x, y }
@@ -216,7 +220,7 @@
     <g class="cells">
         {#each cells as { type, position } }
             <rect
-                class={`type-${type}`}
+                class={`cell-${type.constructor.name}`}
                 x={strokeWidth + position.x * (cellSize + strokeWidth)}
                 y={strokeWidth + position.y * (cellSize + strokeWidth)}
                 width={cellSize}
@@ -305,26 +309,18 @@
                 stroke: none;
             }
 
-            .type-0 {
-                fill: aliceblue;
+            .cell-Sticky {
+                fill: powderblue;
             }
 
-            .type-1 {
+            .cell-Goal {
                 fill: darkorange;
             }
 
-            .type-2 {
+            .cell-Wall {
                 fill: slategray;
             }
-
-            .type-3 {
-                fill: olive; // to be replaced with a tunnel sprite/shape
-            }
-
-            .type-4 {
-                fill: olive; // to be replaced with a tunnel sprite/shape
-            }
-            .type-5 {
+            .cell-Portal {
                 fill: powderblue;
             }
         }
