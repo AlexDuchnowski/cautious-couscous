@@ -7,6 +7,7 @@
         Wall,
         Goal,
         Sticky,
+        Portal,
         type Level,
         type Movement,
         type Vec2
@@ -35,14 +36,14 @@
     const svgWidth = width * cellSize + (width * strokeWidth + 2 * strokeWidth) + margin * 2;
     const svgHeight = height * cellSize + (height * strokeWidth + 2 * strokeWidth) + margin * 2;
     const cells: {
-        type: CellClass;
+        cell: CellClass;
         position: Vec2;
     }[] = [];
     for(let x = 0; x < width; x++) {
         for (let y = 0; y < height; y++) {
             if (!(level.grid[y][x] instanceof Empty)) {
                 cells.push({
-                    type: level.grid[y][x],
+                    cell: level.grid[y][x],
                     position: { x, y }
                 });
             }
@@ -218,9 +219,9 @@
 
     <!-- cells -->
     <g class="cells">
-        {#each cells as { type, position } }
+        {#each cells as { cell, position } }
             <rect
-                class={`cell-${type.constructor.name}`}
+                class={[`cell-${cell.constructor.name}`, cell instanceof Portal ? `color-${cell.color}` : undefined]}
                 x={strokeWidth + position.x * (cellSize + strokeWidth)}
                 y={strokeWidth + position.y * (cellSize + strokeWidth)}
                 width={cellSize}
@@ -320,8 +321,19 @@
             .cell-Wall {
                 fill: slategray;
             }
+
             .cell-Portal {
-                fill: powderblue;
+                &.color-0 {
+                    fill: red;
+                }
+
+                &.color-1 {
+                    fill: blue;
+                }
+
+                &.color-2 {
+                    fill: yellow;
+                }
             }
         }
 

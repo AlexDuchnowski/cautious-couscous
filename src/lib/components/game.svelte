@@ -65,7 +65,8 @@
                     start: { x: 0, y: 0 },
                     end: game.getPlayerPosition(),
                     d: null,
-                    win: false
+                    win: false,
+                    teleportations: []
                 };
                 break;
             default:
