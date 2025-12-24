@@ -14,9 +14,9 @@ export const stage_2: Level[] = [
 	{
 		grid: [
 			[new Wall(), new Wall(), new Wall(), new Wall()],
-			[new Empty(), new Portal(0, { x: 0, y: 3 }), new Goal(), new Wall()],
+			[new Empty(), new Portal(0, { x: 1, y: 3 }), new Goal(), new Wall()],
 			[new Wall(), new Wall(), new Wall(), new Wall()],
-			[new Portal(0, { x: 1, y: 1 }), new Wall(), new Empty(), new Empty()]
+			[new Empty(), new Portal(0, { x: 1, y: 1 }), new Wall(), new Empty()]
 		],
 		playerPosition: { x: 0, y: 1 }
 	}
