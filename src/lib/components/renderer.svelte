@@ -224,7 +224,7 @@
     <g class="cells">
         {#each cells as { cell, position } }
             <rect
-                class={[`cell-${cell.constructor.name}`, cell instanceof Portal ? `color-${cell.color}` : undefined]}
+                class={[`cell-${cell.name()}`, cell instanceof Portal ? `color-${cell.color}` : undefined]}
                 x={strokeWidth + position.x * (cellSize + strokeWidth)}
                 y={strokeWidth + position.y * (cellSize + strokeWidth)}
                 width={cellSize}

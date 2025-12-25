@@ -5,12 +5,32 @@ export enum Direction {
 	Left
 }
 
-export class CellClass {}
+export class CellClass {
+	name() {
+		return "Cell";
+	}
+}
 
-export class Empty extends CellClass {}
-export class Wall extends CellClass {}
-export class Goal extends CellClass {}
-export class Sticky extends CellClass {}
+export class Empty extends CellClass {
+	name() {
+		return "Empty";
+	}
+}
+export class Wall extends CellClass {
+	name() {
+		return "Wall";
+	}
+}
+export class Goal extends CellClass {
+	name() {
+		return "Goal";
+	}
+}
+export class Sticky extends CellClass {
+	name() {
+		return "Sticky";
+	}
+}
 export class Portal extends CellClass {
 	color: number;
 	partnerCoords: { x: number; y: number };
@@ -19,6 +39,10 @@ export class Portal extends CellClass {
 		super();
 		this.color = color;
 		this.partnerCoords = partnerCoords;
+	}
+
+	name() {
+		return "Portal";
 	}
 }
 
