@@ -1,119 +1,47 @@
-import { type Level, Empty, Wall, Goal, Sticky } from '../types';
+import { type Level, Empty as E, Wall as W, Goal as G, Sticky as S } from '../types';
 
 export const stage_1: Level[] = [
 	{
 		grid: [
-			[new Empty(), new Sticky(), new Empty(), new Empty()],
-			[new Wall(), new Empty(), new Wall(), new Empty()],
-			[new Empty(), new Empty(), new Sticky(), new Empty()],
-			[new Wall(), new Wall(), new Goal(), new Wall()]
+			[new E(), new S(), new E(), new E()],
+			[new W(), new E(), new W(), new E()],
+			[new E(), new E(), new S(), new E()],
+			[new W(), new W(), new G(), new W()]
 		],
 		playerPosition: { x: 0, y: 0 }
 	},
 	{
 		grid: [
-			[new Empty(), new Empty(), new Empty(), new Empty(), new Sticky()],
-			[new Empty(), new Empty(), new Empty(), new Sticky(), new Empty()],
-			[new Empty(), new Empty(), new Goal(), new Empty(), new Empty()],
-			[new Sticky(), new Empty(), new Empty(), new Empty(), new Sticky()],
-			[new Empty(), new Sticky(), new Sticky(), new Empty(), new Sticky()]
+			[new E(), new E(), new E(), new E(), new S()],
+			[new E(), new E(), new E(), new S(), new E()],
+			[new E(), new E(), new G(), new E(), new E()],
+			[new S(), new E(), new E(), new E(), new S()],
+			[new E(), new S(), new S(), new E(), new S()]
 		],
 		playerPosition: { x: 0, y: 0 }
 	},
 	{
 		grid: [
-			[
-				new Sticky(),
-				new Empty(),
-				new Sticky(),
-				new Empty(),
-				new Sticky(),
-				new Empty(),
-				new Sticky(),
-				new Empty()
-			],
-			[
-				new Empty(),
-				new Sticky(),
-				new Empty(),
-				new Sticky(),
-				new Empty(),
-				new Sticky(),
-				new Empty(),
-				new Sticky()
-			],
-			[
-				new Sticky(),
-				new Empty(),
-				new Sticky(),
-				new Empty(),
-				new Sticky(),
-				new Empty(),
-				new Sticky(),
-				new Empty()
-			],
-			[
-				new Empty(),
-				new Sticky(),
-				new Empty(),
-				new Sticky(),
-				new Empty(),
-				new Sticky(),
-				new Empty(),
-				new Sticky()
-			],
-			[
-				new Sticky(),
-				new Empty(),
-				new Sticky(),
-				new Empty(),
-				new Sticky(),
-				new Empty(),
-				new Sticky(),
-				new Empty()
-			],
-			[
-				new Empty(),
-				new Sticky(),
-				new Empty(),
-				new Sticky(),
-				new Empty(),
-				new Sticky(),
-				new Empty(),
-				new Sticky()
-			],
-			[
-				new Sticky(),
-				new Empty(),
-				new Sticky(),
-				new Empty(),
-				new Wall(),
-				new Empty(),
-				new Sticky(),
-				new Empty()
-			],
-			[
-				new Empty(),
-				new Sticky(),
-				new Empty(),
-				new Sticky(),
-				new Empty(),
-				new Sticky(),
-				new Empty(),
-				new Goal()
-			]
+			[new S(), new E(), new S(), new E(), new S(), new E(), new S(), new E()],
+			[new E(), new S(), new E(), new S(), new E(), new S(), new E(), new S()],
+			[new S(), new E(), new S(), new E(), new S(), new E(), new S(), new E()],
+			[new E(), new S(), new E(), new S(), new E(), new S(), new E(), new S()],
+			[new S(), new E(), new S(), new E(), new S(), new E(), new S(), new E()],
+			[new E(), new S(), new E(), new S(), new E(), new S(), new E(), new S()],
+			[new S(), new E(), new S(), new E(), new W(), new E(), new S(), new E()],
+			[new E(), new S(), new E(), new S(), new E(), new S(), new E(), new G()]
 		],
 		playerPosition: { x: 0, y: 0 }
 	},
 	{
 		grid: [
-			[new Empty(), new Wall(), new Empty(), new Empty(), new Empty(), new Wall(), new Empty()],
-			[new Empty(), new Empty(), new Wall(), new Empty(), new Wall(), new Empty(), new Empty()],
-			[new Empty(), new Empty(), new Wall(), new Goal(), new Wall(), new Empty(), new Empty()],
-			[new Empty(), new Empty(), new Empty(), new Wall(), new Empty(), new Empty(), new Empty()],
-			[new Empty(), new Wall(), new Wall(), new Wall(), new Empty(), new Empty(), new Empty()],
-			[new Empty(), new Empty(), new Empty(), new Wall(), new Wall(), new Empty(), new Wall()],
-			[new Wall(), new Empty(), new Empty(), new Sticky(), new Empty(), new Wall(), new Empty()]
+			[new E(), new W(), new E(), new E(), new E(), new W(), new E()],
+			[new E(), new E(), new W(), new E(), new W(), new E(), new E()],
+			[new E(), new E(), new W(), new G(), new W(), new E(), new E()],
+			[new E(), new E(), new E(), new W(), new E(), new E(), new E()],
+			[new E(), new W(), new W(), new W(), new E(), new E(), new E()],
+			[new E(), new E(), new E(), new W(), new W(), new E(), new W()],
+			[new W(), new E(), new E(), new S(), new E(), new W(), new E()]
 		],
 		playerPosition: { x: 1, y: 1 }
 	}
