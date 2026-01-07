@@ -21,5 +21,15 @@ export const stage_2: Level[] = [
 			[new W(), new W(), new W(), new W(), new W()]
 		],
 		playerPosition: { x: 1, y: 1 }
+	},
+	{
+		grid: [
+			[new W(), new W(), new W(), new W(), new W()],
+			[new W(), new E(), new P(0, { x: 1, y: 3 }), new E(), new W()],
+			[new W(), new P(1, { x: 3, y: 3 }), new E(), new E(), new W()],
+			[new W(), new P(0, { x: 2, y: 1 }), new E(), new P(1, { x: 1, y: 2 }), new W()],
+			[new W(), new W(), new G(), new W(), new W()]
+		],
+		playerPosition: { x: 1, y: 1 }
 	}
 ];
